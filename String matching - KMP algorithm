@@ -1,0 +1,100 @@
+Problem Statement
+
+﻿
+
+Lily, a software engineer, needs to find all occurrences of a specific pattern in a larger text for her text analysis project. 
+
+
+
+Given two strings txt (the text) and pat (the pattern) of sizes N and M respectively, where N > M, help Lily by printing all starting indices of the pattern in the text using the KMP algorithm. 
+
+Input format :
+The first line of input consists of a string representing the text.
+
+The second line consists of a string representing the pattern.
+
+Output format :
+The output prints the starting indices of all occurrences of the pattern in the text, using 0-based indexing.
+
+
+
+Refer to the sample output for formatting specifications.
+
+Code constraints :
+The input consists of uppercase, lowercase alphabets and spaces (case-sensitive).
+
+Sample test cases :
+Input 1 :
+sunshine
+sun
+Output 1 :
+Found pattern at index 0
+Input 2 :
+AABAACAADAABAABA
+AABA
+Output 2 :
+Found pattern at index 0
+Found pattern at index 9
+Found pattern at index 12
+Input 3 :
+This is a test text
+test
+Output 3 :
+Found pattern at index 10
+
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+void compute(vector<int>&lps,string pattern){
+    int m=pattern.length();
+    int j=0,i=1;
+    lps[0]=0;
+    while (i<m){
+        if (pattern[j]==pattern[i]){
+            j++;
+            lps[i]=j;
+            i++;
+        }
+        else {
+            if(j!=0){
+                j=lps[j-1];
+            }
+            else{
+                lps[i]=0;
+                i++;
+            }
+        }
+    }
+}
+
+int main(){
+    string text,pattern;
+    getline(cin,text);
+    getline(cin,pattern);
+    int n=text.length(), m=pattern.length();
+    vector<int>lps(m);
+    compute(lps,pattern);
+    int i=0,j=0;
+    while (i<n && j<m){
+        if (text[i]==pattern[j]){
+            i++;
+            j++;
+        }
+        else{
+            if (j!=0){
+                j=lps[j-1];
+            }
+            else{
+                i++;
+            }
+        }
+        if (j==m){
+            cout<<"Found pattern at index "<<i-j<<endl;
+            j=lps[j-1];
+        }
+    }
+    
+}
