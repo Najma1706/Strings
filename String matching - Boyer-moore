@@ -1,0 +1,68 @@
+Problem Statement
+Jinu is working on a project where he needs to efficiently search for a pattern within a given text. He wants to implement a program that can count the occurrences of a pattern within the provided text using the Boyer-Moore algorithm.
+
+Write a program to help Jinu implement this pattern-searching functionality. The program should take a text string and a pattern string as input, and it should output the count of occurrences of the pattern within the text.
+
+Input format :
+The first line of input contains a text string, text, consisting of printable ASCII characters.
+
+The second line of input contains a pattern string, pattern, consisting of printable ASCII characters.
+
+Output format :
+The output prints a single integer representing the count of occurrences of the pattern within the given text.
+
+Refer to the sample output for formatting specifications.
+
+Code constraints :
+The given test cases fall under the following specifications:
+
+The length of text will not exceed 100 characters.
+
+The length of pattern will not exceed 100 characters.
+
+The input string must be case-sensitive.
+
+Sample test cases :
+Input 1 :
+ababababa
+ab
+Output 1 :
+4
+Input 2 :
+Hello, how are you doing? How is everything going?
+How
+Output 2 :
+1
+
+// You are using GCC
+// You are using GCC
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    string txt,pat;
+    getline(cin,txt);
+    getline(cin,pat);
+    int n=txt.size();
+    int m=pat.size();
+    vector<int> bad(256,-1);
+    for(int i=0; i<m; i++) {
+        bad[pat[i]]=i;
+    }
+    int i=0,count=0;
+    while(i<=n-m) {
+        int j=m-1;
+        while(j>=0 && txt[i+j]==pat[j]){
+            j--;
+        }
+        if(j<0) {
+            count++;
+            if(i+m<n)
+            i+=m-bad[txt[i+m]];
+            else i++;
+        }
+        else {
+            i+=max(1,j-bad[txt[i+j]]);
+        }
+    }
+    cout<<count;
+}
