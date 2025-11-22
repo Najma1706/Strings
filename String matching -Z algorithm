@@ -1,0 +1,65 @@
+Z algorithm (Linear time pattern searching Algorithm)
+
+
+
+Write a program to implement a string search algorithm called the Z algorithm. The search method takes two string arguments, text, and pattern, and finds all occurrences of the pattern in the text using the Z algorithm. The Z algorithm preprocesses the pattern and text to construct an array Z that stores the length of the longest substring starting from each position that matches the pattern. The method then iterates through the Z array to find all indices where the length of the matching substring equals the length of the pattern. The program takes text and pattern input using the Scanner class.
+
+Input format :
+The first input consists of a string.
+
+The second input consists of the string pattern to search
+
+Output format :
+The output displays the pattern.
+
+
+
+Refer to the sample input and output for format specifications.
+
+Code constraints :
+The given test cases fall under the following specifications:
+
+1≤length of string≤100
+
+1≤length of pattern≤100
+
+Sample test cases :
+Input 1 :
+Geeks for Geeks
+Geek
+Output 1 :
+Pattern found at index 0
+Pattern found at index 10
+Input 2 :
+hello world, hello universe
+hello
+Output 2 :
+Pattern found at index 0
+Pattern found at index 13
+
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    string txt,pat;
+    getline(cin,txt);
+    getline(cin,pat);
+    int n=txt.size();
+    int m=pat.size();
+    string s=pat+"$"+txt;
+    int f=s.size();
+    vector<int> z(f,0);
+    int l=0,r=0;
+    for(int i=1; i<f; i++) {
+        if(i<r) {
+            z[i]=min(r-i,z[l-i]);
+        }
+        while(s[z[i]]==s[i+z[i]]) z[i]++;
+        if(i+z[i>r]){
+            l=i;
+            r=i+z[i];
+        }
+    }
+   for(int i=0; i<f; i++) {
+       if(z[i]==m) cout<<"Pattern found at index "<<i-m-1<<endl;
+   } 
+}
