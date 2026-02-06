@@ -1,10 +1,5 @@
 Problem Statement
-
-
-
 Sam is a high school student who loves solving puzzles and challenges in his computer science class. One day, his teacher gave him an interesting problem related to palindromes. The task is to find the shortest palindrome that can be created by adding characters only to the beginning of a given string.
-
-
 
 Given a string s, Sam needs to write a program to find the shortest palindrome that can be formed by adding characters only to the beginning of the string using KMP algorithm.
 
@@ -13,8 +8,6 @@ The input consists of a string s representing the input string.
 
 Output format :
 The output prints a string representing the shortest palindrome that can be formed by adding characters to the beginning of the string s.
-
-
 
 Refer to the sample output for formatting specifications.
 
